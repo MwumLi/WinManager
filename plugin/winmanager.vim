@@ -50,6 +50,7 @@ end
 " is deprecated because WMToggle has the functionality of both of them.
 if !exists(':WManager')
 	command -nargs=0 WManager :silent call <SID>StartWindowsManager()
+
 end
 if !exists(':WMClose')
 	command -nargs=0 WMClose :silent call <SID>CloseWindowsManager()
@@ -1063,7 +1064,7 @@ function! <SID>ToggleWindowsManager()
 	else
 		call s:StartWindowsManager()
 		" start - @mwumli
-		if exists('g:ifmicro_use_origin') && g:ifmicro_use_origin == 1
+		if exists('g:ifmicro_use_origin_toggle') && g:ifmicro_use_origin_toggle == 1
 
 		else 
 			exec 'q'
