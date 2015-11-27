@@ -1062,6 +1062,8 @@ function! <SID>ToggleWindowsManager()
 		call s:CloseWindowsManager()
 	else
 		call s:StartWindowsManager()
+		" 解决 WinManager 管理 nerdtree 的会自动打开空白窗口的 bug
+		exe 'q'
 	end
 endfunction
 
