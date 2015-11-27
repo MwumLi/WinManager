@@ -39,6 +39,13 @@ if !exists("g:defaultExplorer")
 	let g:defaultExplorer = 1
 end
 
+" start - @mwumli
+if exists('g:ifmicro_auto_open_winmanager') && g:ifmicro_auto_open_winmanager == 1
+	autocmd VimEnter * nested call s:ToggleWindowsManager()
+endif
+" end - @mwumli
+
+
 " commands
 " toggling between the windows manager open or closed. this can also be used
 " to start win manager.
