@@ -511,10 +511,10 @@ function! <SID>RepairAltRegister()
 	let alternateBufferNumber = s:MRUGet(2)
 
 	" if the required alternatebuffer exists, then first edit it to preserve @#
- 	if alternateBufferNumber != bufnr("#") 
+	if alternateBufferNumber != bufnr("#") 
 		\ && alternateBufferNumber != -1
 		\ && buflisted(alternateBufferNumber)
- 		exec 'silent! b! '.alternateBufferNumber
+		exec 'silent! b! '.alternateBufferNumber
 	elseif alternateBufferNumber == -1
 	" if the alternate buffer doesnt exist, do some randomness so that the @#
 	" register is at least not some explorer buffer number. ideally, at this
@@ -532,7 +532,7 @@ function! <SID>RepairAltRegister()
 		return
 	end
 
- 	" now edit the current file (to preserve @% :-) )
+	" now edit the current file (to preserve @% :-) )
 	" it seems that using ":b !" is _very_ important to preserve syntax
 	" highlighting. if ":e #" or ":b " is used, then syntax highlighting is
 	" lost and the ugly hack thing keeps getting called everytime. 
@@ -895,9 +895,9 @@ function! <SID>GotoNextExplorerInGroup(name, ...)
 	let curbufnum = bufnr('%')
 	let somethingDisplayed = s:EditNextVisibleExplorer(grpn, memn, dir, 'e')
 	if !somethingDisplayed && curbufnum != bufnr('%')
-	   	" now start the next explorer using its title
-	   	exe 'let title = s:explorerTitle_'.numn
-	   	exe 'silent! e '.title
+		" now start the next explorer using its title
+		exe 'let title = s:explorerTitle_'.numn
+		exe 'silent! e '.title
 		setlocal nobuflisted
 		setlocal bufhidden=delete
 		setlocal buftype=nofile
@@ -1062,8 +1062,13 @@ function! <SID>ToggleWindowsManager()
 		call s:CloseWindowsManager()
 	else
 		call s:StartWindowsManager()
-		" 解决 WinManager 管理 nerdtree 的会自动打开空白窗口的 bug
-		exe 'q'
+		" start - @mwumli
+		if exists('g:ifmicro_use_origin') && g:ifmicro_use_origin == 1
+
+		else 
+			exec 'q'
+		endif
+		" end - @mwumli
 	end
 endfunction
 
@@ -1291,9 +1296,9 @@ function! <SID>EditDir(event)
 	
 	" if it is, then call the modified explorer.vim's Explore command.
 	if a:event != "VimEnter"
- 		if exists(":Explore")
- 			ExploreInCurrentWindow
- 		end
+		if exists(":Explore")
+			ExploreInCurrentWindow
+		end
 	end
 	" if we have entered vim while editing a directory, then remove the
 	" directory buffer, and start the window layout.
@@ -1309,7 +1314,7 @@ function! <SID>EditDir(event)
 		call s:StartWindowsManager()
 		call s:MRUPush()
 		call s:GotoExplorerWindow('1')
- 	end
+	end
 endfunction
 
 " restore 'cpo'
