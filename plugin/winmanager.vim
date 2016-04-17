@@ -1070,13 +1070,6 @@ function! <SID>ToggleWindowsManager()
 		call s:CloseWindowsManager()
 	else
 		call s:StartWindowsManager()
-		" start - @mwumli
-		if exists('g:ifmicro_use_origin_toggle') && g:ifmicro_use_origin_toggle == 1
-
-		else 
-			exec 'q'
-		endif
-		" end - @mwumli
 	end
 endfunction
 
